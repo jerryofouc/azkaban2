@@ -5,3 +5,4 @@ azkaban-plugins/plugins/hadoopsecuritymanager-yarn/dist/
 .project
 .classpath
 .settings/
+h2dbtest
