@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 LinkedIn, Inc
+ * Copyright 2012 LinkedIn Corp.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,7 +20,6 @@ import azkaban.utils.Props;
 import azkaban.utils.cache.Cache;
 import azkaban.utils.cache.CacheManager;
 import azkaban.utils.cache.Cache.EjectionPolicy;
-import azkaban.utils.cache.Element;
 
 
 /**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 LinkedIn, Inc
+ * Copyright 2012 LinkedIn Corp.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -33,6 +33,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import azkaban.user.User.UserPermissions;
 import azkaban.utils.Props;
 
 /**
@@ -262,6 +263,16 @@ public class XmlUserManager implements UserManager {
 
 		// Add all the roles the group has to the user
 		resolveGroupRoles(user);
+		user.setPermissions(new UserPermissions() {
+			@Override
+			public boolean hasPermission(String permission) {
+				return true;
+			}
+
+			@Override
+			public void addPermission(String permission) {
+			}
+		});
 		return user;
 	}
 

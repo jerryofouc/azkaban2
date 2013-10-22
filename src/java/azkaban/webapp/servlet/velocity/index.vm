@@ -1,5 +1,5 @@
 #*
- * Copyright 2012 LinkedIn, Inc
+ * Copyright 2012 LinkedIn Corp.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -50,12 +50,12 @@
 #if ($allProjects)
 					<h2>All Projects</h2>
 					<div class="section-sub-hd">
-						<h4><a href="${context}/">My Projects</a></h4>
+						<h4><a href="${context}/index">My Projects</a></h4>
 					</div>
 #else
 					<h2>My Projects</h2>
 					<div class="section-sub-hd">
-						<h4><a href="${context}/?all">All Projects</a></h4>
+						<h4><a href="${context}/index?all">All Projects</a></h4>
 					</div>
 #end
 					<form id="search-form" method="get">

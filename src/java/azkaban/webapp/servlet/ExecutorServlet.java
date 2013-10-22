@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 LinkedIn, Inc
+ * Copyright 2012 LinkedIn Corp.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import azkaban.executor.ExecutableFlow;
 import azkaban.executor.ExecutableNode;
 import azkaban.executor.ExecutionOptions;
+import azkaban.executor.ExecutorManagerAdapter;
 import azkaban.executor.ExecutionOptions.FailureAction;
-import azkaban.executor.ExecutorManager;
 import azkaban.executor.ExecutorManagerException;
 import azkaban.executor.Status;
 import azkaban.flow.Flow;
@@ -39,6 +39,7 @@ import azkaban.project.Project;
 import azkaban.project.ProjectManager;
 import azkaban.scheduler.Schedule;
 import azkaban.scheduler.ScheduleManager;
+import azkaban.scheduler.ScheduleManagerException;
 import azkaban.user.Permission;
 import azkaban.user.User;
 import azkaban.user.Permission.Type;
@@ -50,7 +51,7 @@ import azkaban.webapp.session.Session;
 public class ExecutorServlet extends LoginAbstractAzkabanServlet {
 	private static final long serialVersionUID = 1L;
 	private ProjectManager projectManager;
-	private ExecutorManager executorManager;
+	private ExecutorManagerAdapter executorManager;
 	private ScheduleManager scheduleManager;
 	private ExecutorVelocityHelper velocityHelper;
 
@@ -504,11 +505,16 @@ public class ExecutorServlet extends LoginAbstractAzkabanServlet {
 		ret.put("failureEmails", flow.getFailureEmails());
 		
 		Schedule sflow = null;
-		for (Schedule sched: scheduleManager.getSchedules()) {
-			if (sched.getProjectId() == project.getId() && sched.getFlowName().equals(flowId)) {
-				sflow = sched;
-				break;
+		try {
+			for (Schedule sched: scheduleManager.getSchedules()) {
+				if (sched.getProjectId() == project.getId() && sched.getFlowName().equals(flowId)) {
+					sflow = sched;
+					break;
+				}
 			}
+		} catch (ScheduleManagerException e) {
+			// TODO Auto-generated catch block
+			throw new ServletException(e);
 		}
 		
 		if (sflow != null) {
@@ -760,9 +766,10 @@ public class ExecutorServlet extends LoginAbstractAzkabanServlet {
 		if (!options.isSuccessEmailsOverridden()) {
 			options.setSuccessEmails(flow.getSuccessEmails());
 		}
+		options.setMailCreator(flow.getMailCreator());
 		
 		try {
-			String message = executorManager.submitExecutableFlow(exflow);
+			String message = executorManager.submitExecutableFlow(exflow, user.getUserId());
 			ret.put("message", message);
 		}
 		catch (ExecutorManagerException e) {
