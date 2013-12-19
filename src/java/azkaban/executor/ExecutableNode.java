@@ -42,6 +42,7 @@ public class ExecutableNode {
 	private Props outputProps;
 	private int attempt = 0;
 	private boolean paused = false;
+	private int totalRetry = 0;
 	
 	private long delayExecution = 0;
 
@@ -324,6 +325,14 @@ public class ExecutableNode {
 
 	}
 
+	public int getTotalRetry() {
+		return totalRetry;
+	}
+
+	public void setTotalRetry(int totalRetry) {
+		this.totalRetry = totalRetry;
+	}
+
 	public static class Attempt {
 		private int attempt = 0;
 		private long startTime = -1;
@@ -372,5 +381,6 @@ public class ExecutableNode {
 			attempts.put("status", status.toString());
 			return attempts;
 		}
+		
 	}
 }
