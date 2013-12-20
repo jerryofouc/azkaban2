@@ -150,6 +150,7 @@ public class EmailMessage {
 		props.put("mail.password", _mailPassword);
 		props.put("mail."+protocol+".timeout", _mailTimeout);
 		props.put("mail."+protocol+".connectiontimeout", _connectionTimeout);
+		props.put("mail.smtp.starttls.enable", "true");
 
 		Session session = Session.getInstance(props, null);
 		Message message = new MimeMessage(session);
@@ -186,6 +187,20 @@ public class EmailMessage {
 		t.close();
 	}
 
+	public static void main(String args[]) throws MessagingException{
+		EmailMessage emailMessage = new EmailMessage();
+		emailMessage.setFromAddress("xiaojieaa@gmail.com");
+		emailMessage.setBody("xxx");
+		emailMessage.setMailHost("smtp.gmail.com");
+		emailMessage.setMailPassword("jerry1024");
+		emailMessage.setMailUser("xiaojieaa@gmail.com");
+		emailMessage.setSubject("xxx");
+		emailMessage.addToAddress("xiaojieaa@gmail.com");
+		emailMessage.sendEmail();
+		
+		
+		
+	}
 	public void setBody(String body) {
 		setBody(body, _mimeType);
 	}
