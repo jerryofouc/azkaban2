@@ -189,13 +189,13 @@ public class EmailMessage {
 
 	public static void main(String args[]) throws MessagingException{
 		EmailMessage emailMessage = new EmailMessage();
-		emailMessage.setFromAddress("xiaojieaa@gmail.com");
+		emailMessage.setFromAddress("azkaban_alert@163.com");
 		emailMessage.setBody("xxx");
-		emailMessage.setMailHost("smtp.gmail.com");
-		emailMessage.setMailPassword("jerry1024");
-		emailMessage.setMailUser("xiaojieaa@gmail.com");
+		emailMessage.setMailHost("smtp.163.com");
+		emailMessage.setMailPassword("azkaban");
+		emailMessage.setMailUser("azkaban_alert@163.com");
 		emailMessage.setSubject("xxx");
-		emailMessage.addToAddress("xiaojieaa@gmail.com");
+		emailMessage.addToAddress("azkaban_alert@163.com");
 		emailMessage.sendEmail();
 		
 		
