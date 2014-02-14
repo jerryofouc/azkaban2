@@ -184,7 +184,7 @@ public class JobRunner extends EventHandler implements Runnable {
 	@Override
 	public void run() {
 		Thread.currentThread().setName("JobRunner-" + node.getJobId() + "-" + executionId);
-		
+		node.setTotalRetry(this.getRetries());//add by hzzhangxiaojie 在跑之前把这个变量设置上去
 		if (node.getStatus() == Status.DISABLED) {
 			node.setStartTime(System.currentTimeMillis());
 			fireEvent(Event.create(this, Type.JOB_STARTED, null, false));

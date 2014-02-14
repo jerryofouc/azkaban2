@@ -703,9 +703,15 @@ public class FlowRunner extends EventHandler implements Runnable {
 			
 			Status depStatus = dependencyNode.getStatus();
 			switch (depStatus) {
-			case FAILED:
 			case KILLED:
 				shouldKill = true;
+				continue;
+			case FAILED:
+				if(dependencyNode.getAttempt()<=dependencyNode.getTotalRetry()){//如果没有过重试次数，就不kill
+					return null;
+				}else{//代表正在run
+					shouldKill = true;
+				}
 			case SKIPPED:
 			case SUCCEEDED:
 				continue;
